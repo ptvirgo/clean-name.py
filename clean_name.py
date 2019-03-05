@@ -32,7 +32,8 @@ def clean_name(fn):
     # dedup _ and .
 
     file_name = re.sub("_+", "_", file_name)
-    file_name = re.sub("[_\.]*\._*", ".", file_name)
+    file_name = re.sub(
+        "[_\.]*([\.\~-])_*", lambda match: match.groups()[0], file_name)
 
     return os.path.join(path[0], file_name.lower())
 

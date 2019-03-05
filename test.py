@@ -24,6 +24,7 @@ class TestCleanName(unittest.TestCase):
             clean_name("/home/user/documents/so...much...win"),
             "/home/user/documents/so.much.win")
 
+    def test_clean_name_drops_bad_underscores(self):
         self.assertEqual(
             clean_name("/home/user/something_.txt"),
             "/home/user/something.txt")
@@ -31,6 +32,8 @@ class TestCleanName(unittest.TestCase):
         self.assertEqual(
             clean_name("/home/user/something._txt"),
             "/home/user/something.txt")
+
+        self.assertEqual(clean_name("this_-_bad_._name"), "this-bad.name")
 
     def test_unix_split_basename(self):
         self.assertEqual(unix_split_basename("/foo/bar/"), ("/foo", "bar"))
